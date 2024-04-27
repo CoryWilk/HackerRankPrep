@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    private static Stack<Long> stack1 = new Stack<>();
+    private static Stack<Long> stack2 = new Stack<>();
+    
+    static void enqueue(Long item) {
+        stack1.push(item);
+    }
+    
+    static Long dequeue() {
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        if (stack2.isEmpty()) {
+            return null;
+        }
+        
+        return stack2.pop();
+    }
+
+    static Long peek() {
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        if (stack2.isEmpty()) {
+            return null;
+        }
+        
+        return stack2.peek();
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner scanner = new Scanner(System.in);
+        long numberOfQueries = Long.parseLong(scanner.nextLine());
+        
+        for (int i = 1; i <= numberOfQueries; i++) {
+            String[] line = scanner.nextLine().split(" ");
+            String command = line[0];
+            
+            switch (command){
+                case "1":   enqueue(Long.parseLong(line[1]));   break;
+                case "2":   dequeue();  break;
+                case "3":   System.out.println(peek()); break;
+                default:    System.err.println("Bad command input!");
+            }
+        }
+        scanner.close();
+    }
+}
