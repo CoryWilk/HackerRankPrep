@@ -1,0 +1,36 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+                Scanner scanner = new Scanner(System.in);
+        String s = "";
+
+        Stack<String> undoStack = new Stack<>();
+        int testCount = scanner.nextInt();
+
+        for (int i = 0; i < testCount; i++) {
+            int operationType = scanner.nextInt();
+            switch (operationType){
+                case 1:
+                    undoStack.push(s);
+                    s += scanner.next();
+                    break;
+                case 2:
+                    undoStack.push(s);
+                    int k = scanner.nextInt();
+                    s = s.substring(0, s.length() - k);
+                    break;
+                case 3:
+                    int kth = scanner.nextInt();
+                    System.out.println(s.charAt(kth - 1));
+                    break;
+                case 4:
+                    s = undoStack.pop();
+                    break;
+            }
+        }
+    }
+}
